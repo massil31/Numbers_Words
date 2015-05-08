@@ -50,8 +50,6 @@ $word = $numbers_words->toWords(12378 /**Number**/, 'en'/**locale**/)
 // In Controller
 $numbers_words = new Word();
 
-$numbers_words = new Words();
-        
 $word = $numbers_words->toCurrency('123,56'/**Ammount**/, 'en'/**Locale**/, 'EUR'/**Currency**/, ','/**Decimal Point**/);
 
 // Output : cent vingt-trois euros cinquante-six centimes
