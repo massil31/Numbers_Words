@@ -1,4 +1,8 @@
 <?php
+
+namespace azul\Numbers\Words\Locale;
+
+use azul\Numbers\Words;
 /**
  * Numbers_Words
  *
@@ -16,66 +20,65 @@
  *
  * @category Numbers
  * @package  Numbers_Words
- * @author   Hadar Porat <hpman28@gmail.com>
+ * @author   Piotr Klaban <makler@man.torun.pl>
  * @license  PHP 3.01 http://www.php.net/license/3_01.txt
  * @version  SVN: $Id$
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
 /**
- * Class for translating numbers into Hebrew.
+ * Class for translating numbers into American English.
  *
- * @author Hadar Porat
+ * @author Piotr Klaban
  * @package Numbers_Words
  */
 
 /**
  * Include needed files
  */
-require_once "Numbers/Words.php";
 
 /**
- * Class for translating numbers into Hebrew.
+ * Class for translating numbers into American English.
  *
  * @category Numbers
  * @package  Numbers_Words
- * @author   Hadar Porat <hpman28@gmail.com>
+ * @author   Piotr Klaban <makler@man.torun.pl>
  * @license  PHP 3.01 http://www.php.net/license/3_01.txt
  * @link     http://pear.php.net/package/Numbers_Words
  */
-class Numbers_Words_Locale_he extends Numbers_Words
+class NumbersWordsLocaleEn extends Words
 {
 
     // {{{ properties
-    
+
     /**
      * Locale name
      * @var string
      * @access public
      */
-    var $locale = 'he';
+    var $locale = 'en_US';
 
     /**
      * Language name in English
      * @var string
      * @access public
      */
-    var $lang = 'Hebrew';
+    var $lang = 'American English';
 
     /**
      * Native language name
      * @var string
      * @access public
      */
-    var $lang_native = 'עברית';
-    
+    var $lang_native = 'American English';
+
     /**
      * The word for the minus sign
      * @var string
      * @access private
      */
     var $_minus = 'minus'; // minus sign
-    
+
     /**
      * The sufixes for exponents (singular and plural)
      * Names partly based on:
@@ -87,12 +90,12 @@ class Numbers_Words_Locale_he extends Numbers_Words
      */
     var $_exponent = array(
         0 => array(''),
-        3 => array('אלפים'),
-        6 => array('מיליון'),
-        9 => array('ביליון'),
-       12 => array('טריליון'),
-       15 => array('קוודריליון'),
-       18 => array('קווינטיליון'),
+        3 => array('thousand'),
+        6 => array('million'),
+        9 => array('billion'),
+       12 => array('trillion'),
+       15 => array('quadrillion'),
+       18 => array('quintillion'),
        21 => array('sextillion'),
        24 => array('septillion'),
        27 => array('octillion'),
@@ -208,24 +211,9 @@ class Numbers_Words_Locale_he extends Numbers_Words
      * @access private
      */
     var $_digits = array(
-        0 => 'אפס', 'אחד', 'שניים', 'שלושה', 'ארבעה',
-        'חמישה', 'שישה', 'שבעה', 'שמונה', 'תשעה'
+        0 => 'zero', 'one', 'two', 'three', 'four',
+        'five', 'six', 'seven', 'eight', 'nine'
     );
-    
-    var $_digits_ten = array(
-        2 => 'עשרים', 'שלושים', 'ארבעים', 'חמישים',
-        'שישים', 'שבעים', 'שמונים', 'תשעים'
-    );
-    
-    var $_digits_female = array(
-        0 => 'אפס', 'אחת', 'שתיים', 'שלוש', 'ארבע',
-        'חמש', 'שש', 'שבע', 'שמונה', 'תשע'
-    );     
-    
-    var $digits_hundreds = array(
-        0 => '', 'מאה', 'שני-מאות', 'שלוש-מאות', 'ארבע-מאות',
-        'חמש-מאות', 'שש-מאות', 'שבע-מאות', 'שמונה-מאות', 'תשע-מאות'
-    );         
 
     /**
      * The word separator
@@ -233,10 +221,6 @@ class Numbers_Words_Locale_he extends Numbers_Words
      * @access private
      */
     var $_sep = ' ';
-
-    var $_sep_hundred = '-';
-
-    var $_sep_ten = ' ו';
 
     /**
      * The currency names (based on the below links,
@@ -273,7 +257,6 @@ class Numbers_Words_Locale_he extends Numbers_Words
       'LVL' => array(array('lat'), array('sentim')),
       'MKD' => array(array('Macedonian dinar'), array('deni')),
       'MTL' => array(array('Maltese lira'), array('centym')),
-      'NIS' => array(array('שקלים חדשים'), array('nis')), // need more info if NIS or ILS
       'NOK' => array(array('Norwegian krone'), array('oere')),
       'PLN' => array(array('zloty', 'zlotys'), array('grosz')),
       'ROL' => array(array('Romanian leu'), array('bani')),
@@ -293,20 +276,21 @@ class Numbers_Words_Locale_he extends Numbers_Words
      * @var string
      * @access public
      */
-    var $def_currency = 'NIS';
+    var $def_currency = 'USD'; // American dollar
 
     // }}}
     // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
+     * in American English language
      *
      * @param integer $num       An integer between -infinity and infinity inclusive :)
      *                           that need to be converted to words
      * @param integer $power     The power of ten for the rest of the number to the right.
      *                           Optional, defaults to 0.
      * @param integer $powsuffix The power name to be added to the end of the return string.
-     *                           Used internally. Optional, defaults to ''.
+     *                            Used internally. Optional, defaults to ''.
      *
      * @return string  The corresponding word representation
      *
@@ -316,24 +300,23 @@ class Numbers_Words_Locale_he extends Numbers_Words
      */
     function _toWords($num, $power = 0, $powsuffix = '')
     {
-        $ret = '';        
-      
+        $ret = '';
+
         // add a minus sign
         if (substr($num, 0, 1) == '-') {
             $ret = $this->_sep . $this->_minus;
             $num = substr($num, 1);
         }
-        
+
         // strip excessive zero signs and spaces
         $num = trim($num);
         $num = preg_replace('/^0+/', '', $num);
-        
+
         if (strlen($num) > 3) {
             $maxp = strlen($num)-1;
             $curp = $maxp;
-
             for ($p = $maxp; $p > 0; --$p) { // power
-            
+
                 // check for highest power
                 if (isset($this->_exponent[$p])) {
                     // send substr from $curp to $p
@@ -347,7 +330,6 @@ class Numbers_Words_Locale_he extends Numbers_Words
 
                         $ret .= $this->_toWords($snum, $p, $cursuffix);
                     }
-
                     $curp = $p - 1;
                     continue;
                 }
@@ -359,9 +341,9 @@ class Numbers_Words_Locale_he extends Numbers_Words
         } elseif ($num == 0 || $num == '') {
             return $this->_sep . $this->_digits[0];
         }
-    
+
         $h = $t = $d = 0;
-      
+
         switch(strlen($num)) {
         case 3:
             $h = (int)substr($num, -3, 1);
@@ -377,9 +359,9 @@ class Numbers_Words_Locale_he extends Numbers_Words
             return;
             break;
         }
-    
+
         if ($h) {
-            $ret .= $this->_sep  . $this->digits_hundreds[$h];
+            $ret .= $this->_sep . $this->_digits[$h] . $this->_sep . 'hundred';
 
             // in English only - add ' and' for [1-9]01..[1-9]99
             // (also for 1001..1099, 10001..10099 but it is harder)
@@ -390,71 +372,94 @@ class Numbers_Words_Locale_he extends Numbers_Words
         }
 
         // ten, twenty etc.
-
         switch ($t) {
         case 9:
-        case 8:
         case 7:
         case 6:
-        case 5:
-        case 4:
-        case 3:
-        case 2:
-            $ret .= $this->_sep . $this->_digits_ten[$t];
+            $ret .= $this->_sep . $this->_digits[$t] . 'ty';
             break;
-    
-   
+
+        case 8:
+            $ret .= $this->_sep . 'eighty';
+            break;
+
+        case 5:
+            $ret .= $this->_sep . 'fifty';
+            break;
+
+        case 4:
+            $ret .= $this->_sep . 'forty';
+            break;
+
+        case 3:
+            $ret .= $this->_sep . 'thirty';
+            break;
+
+        case 2:
+            $ret .= $this->_sep . 'twenty';
+            break;
+
         case 1:
             switch ($d) {
             case 0:
-                $ret .= $this->_sep . 'עשר';
+                $ret .= $this->_sep . 'ten';
                 break;
-    
+
             case 1:
+                $ret .= $this->_sep . 'eleven';
+                break;
+
             case 2:
+                $ret .= $this->_sep . 'twelve';
+                break;
+
             case 3:
+                $ret .= $this->_sep . 'thirteen';
+                break;
+
             case 4:
-            case 5:
             case 6:
             case 7:
-            case 8:          
             case 9:
-                $ret .= $this->_sep . $this->_digits[$d] . '-עשר';
+                $ret .= $this->_sep . $this->_digits[$d] . 'teen';
+                break;
+
+            case 5:
+                $ret .= $this->_sep . 'fifteen';
+                break;
+
+            case 8:
+                $ret .= $this->_sep . 'eighteen';
                 break;
             }
-            break; 
+            break;
         }
 
         if ($t != 1 && $d > 0) { // add digits only in <0>,<1,9> and <21,inf>
             // add minus sign between [2-9] and digit
             if ($t > 1) {
-                $ret .= $this -> _sep_ten . $this->_digits[$d];
+                $ret .= '-' . $this->_digits[$d];
             } else {
-                if (strlen($ret)>0) {
-                    $ret .= $this->_sep . 'ו' . $this->_digits[$d];
-                } else {
-                    $ret .= $this->_sep . $this->_digits[$d];
-                }
+                $ret .= $this->_sep . $this->_digits[$d];
             }
         }
-  
+
         if ($power > 0) {
             if (isset($this->_exponent[$power])) {
                 $lev = $this->_exponent[$power];
             }
-    
+
             if (!isset($lev) || !is_array($lev)) {
                 return null;
             }
 
-     
             $ret .= $this->_sep . $lev[0];
         }
-    
+
         if ($powsuffix != '') {
             $ret .= $this->_sep . $powsuffix;
         }
-    
+
         return $ret;
     }
     // }}}
@@ -462,7 +467,7 @@ class Numbers_Words_Locale_he extends Numbers_Words
 
     /**
      * Converts a currency value to its word representation
-     * (with monetary units)
+     * (with monetary units) in English language
      *
      * @param integer $int_curr         An international currency symbol
      *                                  as defined by the ISO 4217 standard (three characters)
@@ -484,7 +489,6 @@ class Numbers_Words_Locale_he extends Numbers_Words
         if (!isset($this->_currency_names[$int_curr])) {
             $int_curr = $this->def_currency;
         }
-
         $curr_names = $this->_currency_names[$int_curr];
 
         $ret = trim($this->_toWords($decimal));
@@ -493,12 +497,12 @@ class Numbers_Words_Locale_he extends Numbers_Words
             if (count($curr_names[0]) > 1) {
                 $ret .= $this->_sep . $curr_names[0][$lev];
             } else {
-                $ret .= $this->_sep . $curr_names[0][0] . '';
+                $ret .= $this->_sep . $curr_names[0][0] . 's';
             }
         } else {
             $ret .= $this->_sep . $curr_names[0][0];
         }
-      
+
         if ($fraction !== false) {
             if ($convert_fraction) {
                 $ret .= $this->_sep . trim($this->_toWords($fraction));
@@ -510,7 +514,7 @@ class Numbers_Words_Locale_he extends Numbers_Words
                 if (count($curr_names[1]) > 1) {
                     $ret .= $this->_sep . $curr_names[1][$lev];
                 } else {
-                    $ret .= $this->_sep . $curr_names[1][0] . '';
+                    $ret .= $this->_sep . $curr_names[1][0] . 's';
                 }
             } else {
                 $ret .= $this->_sep . $curr_names[1][0];

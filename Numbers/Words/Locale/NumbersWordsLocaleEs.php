@@ -1,4 +1,6 @@
 <?php
+
+namespace azul\Numbers\Words\Locale;
 /**
  * Numbers_Words
  *
@@ -16,38 +18,36 @@
  *
  * @category Numbers
  * @package  Numbers_Words
- * @author   Pavel Oropeza   <pavel@cognus.ath.cx>
- * @author   Martin Marrese  <mmare@mecon.gov.ar>
+ * @author   Xavier Noguer
  * @license  PHP 3.01 http://www.php.net/license/3_01.txt
- * @version  SVN: $Id: lang.es_AR.php 269823 2008-11-25 13:47:38Z clockwerx $
+ * @version  SVN: $Id$
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
 /**
- * Class for translating numbers into Mexican Spanish.
+ * Class for translating numbers into Spanish (Castellano).
  *
- * @author Martin Marrese
+ * @author Xavier Noguer
  * @package Numbers_Words
  */
 
 /**
  * Include needed files
  */
-require_once "Numbers/Words.php";
+use azul\Numbers\Words;
 
 /**
- * Class for translating numbers into Argentinian Spanish.
+ * Class for translating numbers into Spanish (Castellano).
  * It supports up to decallones (10^6).
  * It doesn't support spanish tonic accents (acentos).
  *
  * @category Numbers
  * @package  Numbers_Words
- * @author   Pavel Oropeza   <pavel@cognus.ath.cx>
- * @author   Martin Marrese  <mmare@mecon.gov.ar>
+ * @author   Xavier Noguer
  * @license  PHP 3.01 http://www.php.net/license/3_01.txt
  * @link     http://pear.php.net/package/Numbers_Words
  */
-class Numbers_Words_Locale_es_MX extends Numbers_Words
+class NumbersWordsLocaleEs extends Words
 {
     // {{{ properties
 
@@ -56,7 +56,7 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
      * @var string
      * @access public
      */
-    var $locale = 'es_MX';
+    var $locale = 'es';
 
     /**
      * Language name in English
@@ -70,7 +70,7 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
      * @var string
      * @access public
      */
-    var $lang_native = 'Español';
+    var $lang_native = 'Espa�ol';
 
     /**
      * The word for the minus sign
@@ -87,16 +87,16 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
     var $_exponent = array(
         0 => array('',''),
         3 => array('mil','mil'),
-        6 => array('millón','millones'),
-       12 => array('billón','billones'),
-       18 => array('trilón','trillones'),
-       24 => array('cuatrillón','cuatrillones'),
-       30 => array('quintillón','quintillones'),
-       36 => array('sextillón','sextillones'),
-       42 => array('septillón','septillones'),
-       48 => array('octallón','octallones'),
-       54 => array('nonallón','nonallones'),
-       60 => array('decallón','decallones'),
+        6 => array('mill�n','millones'),
+       12 => array('bill�n','billones'),
+       18 => array('tril�n','trillones'),
+       24 => array('cuatrill�n','cuatrillones'),
+       30 => array('quintill�n','quintillones'),
+       36 => array('sextill�n','sextillones'),
+       42 => array('septill�n','septillones'),
+       48 => array('octall�n','octallones'),
+       54 => array('nonall�n','nonallones'),
+       60 => array('decall�n','decallones'),
         );
     /**
      * The array containing the digits (indexed by the digits themselves).
@@ -104,7 +104,7 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
      * @access private
      */
     var $_digits = array(
-        0 => 'cero', 'un', 'dos', 'tres', 'cuatro',
+        0 => 'cero', 'uno', 'dos', 'tres', 'cuatro',
         'cinco', 'seis', 'siete', 'ocho', 'nueve'
         );
     /**
@@ -113,72 +113,13 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
      * @access private
      */
     var $_sep = ' ';
-
-    /**
-     * The currency names (based on the below links,
-     * informations from central bank websites and on encyclopedias)
-     *
-     * @var array
-     * @link http://30-03-67.dreamstation.com/currency_alfa.htm World Currency Information
-     * @link http://www.jhall.demon.co.uk/currency/by_abbrev.html World currencies
-     * @link http://www.shoestring.co.kr/world/p.visa/change.htm Currency names in English
-     * @access private
-     */
-    var $_currency_names = array(
-      'ALL' => array(array('lek'), array('qindarka')),
-      'AUD' => array(array('Australian dollar'), array('cent')),
-      'ARS' => array(array('Peso'), array ('centavo')),
-      'BAM' => array(array('convertible marka'), array('fenig')),
-      'BGN' => array(array('lev'), array('stotinka')),
-      'BRL' => array(array('real'), array('centavos')),
-      'BYR' => array(array('Belarussian rouble'), array('kopiejka')),
-      'CAD' => array(array('Canadian dollar'), array('cent')),
-      'CHF' => array(array('Swiss franc'), array('rapp')),
-      'CYP' => array(array('Cypriot pound'), array('cent')),
-      'CZK' => array(array('Czech koruna'), array('halerz')),
-      'DKK' => array(array('Danish krone'), array('ore')),
-      'EEK' => array(array('kroon'), array('senti')),
-      'EUR' => array(array('euro'), array('euro-cent')),
-      'GBP' => array(array('pound', 'pounds'), array('pence')),
-      'HKD' => array(array('Hong Kong dollar'), array('cent')),
-      'HRK' => array(array('Croatian kuna'), array('lipa')),
-      'HUF' => array(array('forint'), array('filler')),
-      'ILS' => array(array('new sheqel','new sheqels'), array('agora','agorot')),
-      'ISK' => array(array('Icelandic króna'), array('aurar')),
-      'JPY' => array(array('yen'), array('sen')),
-      'LTL' => array(array('litas'), array('cent')),
-      'LVL' => array(array('lat'), array('sentim')),
-      'MKD' => array(array('Macedonian dinar'), array('deni')),
-      'MTL' => array(array('Maltese lira'), array('centym')),
-      'MXN' => array(array('peso'), array ('centavo')),
-      'NOK' => array(array('Norwegian krone'), array('oere')),
-      'PLN' => array(array('zloty', 'zlotys'), array('grosz')),
-      'ROL' => array(array('Romanian leu'), array('bani')),
-      'RUB' => array(array('Russian Federation rouble'), array('kopiejka')),
-      'SEK' => array(array('Swedish krona'), array('oere')),
-      'SIT' => array(array('Tolar'), array('stotinia')),
-      'SKK' => array(array('Slovak koruna'), array()),
-      'TRL' => array(array('lira'), array('kuruþ')),
-      'UAH' => array(array('hryvna'), array('cent')),
-      'USD' => array(array('dollar'), array('cent')),
-      'YUM' => array(array('dinars'), array('para')),
-      'ZAR' => array(array('rand'), array('cent'))
-    );
-
-    /**
-     * The default currency name
-     * @var string
-     * @access public
-     */
-    var $def_currency = 'MXN'; // Mexican Peso
-
     // }}}
     // {{{ _toWords()
     /**
      * Converts a number to its word representation
-     * in Mexican Spanish.
+     * in Spanish (Castellano).
      *
-     * @param float   $num   An float between -infinity and infinity inclusive :)
+     * @param integer $num   An integer between -infinity and infinity inclusive :)
      *                        that should be converted to a words representation
      * @param integer $power The power of ten for the rest of the number to the right.
      *                        For example toWords(12,3) should give "doce mil".
@@ -187,7 +128,7 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
      * @return string  The corresponding word representation
      *
      * @access protected
-     * @author Martin Marrese
+     * @author Xavier Noguer
      * @since  Numbers_Words 0.16.3
      */
     function _toWords($num, $power = 0)
@@ -204,11 +145,6 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
 
         // strip excessive zero signs
         $num = preg_replace('/^0+/', '', $num);
-
-        $num_tmp = explode('.', $num);
-
-        $num = $num_tmp[0];
-        $dec = (@$num_tmp[1]) ? $num_tmp[1] : '';
 
         if (strlen($num) > 6) {
             $current_power = 6;
@@ -308,7 +244,7 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
                 $ret .= $this->_sep . 'veinte';
             } else {
                 if (($power > 0) and ($d == 1)) {
-                    $ret .= $this->_sep . 'veintiún';
+                    $ret .= $this->_sep . 'veinti�n';
                 } else {
                     $ret .= $this->_sep . 'veinti' . $this->_digits[$d];
                 }
@@ -365,7 +301,6 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
             } else {
                 if (($power > 0) and ($d == 1)) {
                     $ret .= $this->_sep.'un';
-                    
                 } else {
                     $ret .= $this->_sep.$this->_digits[$d];
                 }
@@ -392,74 +327,7 @@ class Numbers_Words_Locale_es_MX extends Numbers_Words
             }
         }
 
-        if ($dec) {
-            $dec  = $this->_toWords(trim($dec));
-            $ret .= ' con ' . trim($dec);
-        }
-
         return $ret;
     }
-    
-
-    /**
-     * Converts a currency value to its word representation
-     * (with monetary units) in Mexican Spanish language
-     *
-     * @param integer $int_curr         An international currency symbol
-     *                                  as defined by the ISO 4217 standard (three characters)
-     * @param integer $decimal          A money total amount without fraction part (e.g. amount of dollars)
-     * @param integer $fraction         Fractional part of the money amount (e.g. amount of cents)
-     *                                  Optional. Defaults to false.
-     * @param integer $convert_fraction Convert fraction to words (left as numeric if set to false).
-     *                                  Optional. Defaults to true.
-     *
-     * @return string  The corresponding word representation for the currency
-     *
-     * @access public
-     * @author Pavel Oropeza
-     */
-    function toCurrencyWords($int_curr, $decimal, $fraction = false, $convert_fraction = true)
-    {
-        if (!isset($this->_currency_names[$int_curr])) {
-            $int_curr = $this->def_currency;
-        }
-
-        $curr_names = $this->_currency_names[$int_curr];
-
-        $lev = ($decimal == 1) ? 0 : 1;
-        if ($lev > 0) {
-            $curr_names = $this->_currency_names[$int_curr];
-            if (count($curr_names[0]) > 1) {
-                $ret = $curr_names[0][$lev];
-            } else {
-                $ret = $curr_names[0][0] . 's';
-            }
-
-        } else {
-            $ret = $curr_names[0][0];
-        }
-        $ret = $this->_sep . ucfirst(trim($this->_toWords($decimal) ." " . $ret)); 
-
-        if ($fraction !== false) {
-            if ($convert_fraction) {
-                $ret .= $this->_sep .'con'. $this->_sep . trim($this->_toWords($fraction));
-            } else {
-                $ret .= $this->_sep .'con'. $this->_sep . $fraction;
-            }
-
-            $lev = ($fraction == 1) ? 0 : 1;
-            if ($lev > 0) {
-                if (count($curr_names[1]) > 1) {
-                    $ret .= $this->_sep . $curr_names[1][$lev];
-                } else {
-                    $ret .= $this->_sep . $curr_names[1][0] . 's';
-                }
-
-            } else {
-                $ret .= $this->_sep . $curr_names[1][0];
-            }
-        }
-        return $ret;
-        
-    }
+    // }}}
 }

@@ -1,4 +1,9 @@
 <?php
+
+namespace azul\Numbers;
+
+
+//use ep\NumbersToWordsBundle\Numbers_Words\Numbers\Words\Locale\NumbersWordsLocaleFr;
 /**
  * Numbers_Words
  *
@@ -25,8 +30,6 @@
  */
 
 // {{{ Numbers_Words
-require_once 'Numbers/Words/Exception.php';
-
 /**
  * The Numbers_Words class provides method to convert arabic numerals to words.
  *
@@ -38,7 +41,7 @@ require_once 'Numbers/Words/Exception.php';
  * @since    PHP 4.2.3
  * @access   public
  */
-class Numbers_Words
+class Words
 {
     // {{{ constants
 
@@ -75,7 +78,7 @@ class Numbers_Words
      * @var string
      * @access public
      */
-    public $locale = 'en_US';
+    public $locale = 'en';
 
     /**
      * Default decimal mark
@@ -101,9 +104,9 @@ class Numbers_Words
      * @since  PHP 4.2.3
      * @return string  The corresponding word representation
      */
-    function toWords($num, $locale = '', $options = array())
+    public static function toWords($num, $locale = '', $options = array())
     {
-        if (empty($locale) && isset($this) && $this instanceof Numbers_Words) {
+        if (empty($locale) && isset($this) && $this instanceof Words) {
             $locale = $this->locale;
         }
 
@@ -273,28 +276,22 @@ class Numbers_Words
      *
      * @return string Locale class name
      *
-     * @throws Numbers_Words_Exception When the class cannot be loaded
+     * @throws Exception When the class cannot be loaded
      */
     public static function loadLocale($locale, $requiredMethod)
     {
-        $classname = 'Numbers_Words_Locale_' . $locale;
+        $locale = ucfirst(substr($locale, 0,2));
+        $classname = __NAMESPACE__.'\Words\Locale\NumbersWordsLocale' . $locale;
         if (!class_exists($classname)) {
-            $file = str_replace('_', '/', $classname) . '.php';
-            if (stream_resolve_include_path($file)) {
-                include_once $file;
-            }
-
-            if (!class_exists($classname)) {
-                throw new Numbers_Words_Exception(
-                    'Unable to load locale class ' . $classname
-                );
-            }
+            throw new \Exception(
+                'Unable to load locale class ' . $classname
+            );
         }
-
+        
         $methods = get_class_methods($classname);
 
         if (!in_array($requiredMethod, $methods)) {
-            throw new Numbers_Words_Exception(
+            throw new \Exception(
                 "Unable to find method '$requiredMethod' in class '$classname'"
             );
         }
