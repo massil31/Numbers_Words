@@ -1,6 +1,6 @@
 <?php
 
-namespace azul\Numbers\Words\Locale;
+namespace azul\Numbers_Words\Numbers\Words\Locale;
 /**
  * Numbers_Words
  *

@@ -1,6 +1,6 @@
 <?php
 
-namespace azul\Numbers;
+namespace azul\Numbers_Words\Numbers;
 
 
 //use ep\NumbersToWordsBundle\Numbers_Words\Numbers\Words\Locale\NumbersWordsLocaleFr;

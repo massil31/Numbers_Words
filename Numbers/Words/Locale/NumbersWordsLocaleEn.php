@@ -1,8 +1,8 @@
 <?php
 
-namespace azul\Numbers\Words\Locale;
+namespace azul\Numbers_Words\Numbers\Words\Locale;
 
-use azul\Numbers\Words;
+use azul\Numbers_Words\Numbers\Words;
 /**
  * Numbers_Words
  *
