@@ -34,7 +34,7 @@ namespace azul\Numbers_Words\Numbers\Words\Locale;
 /**
  * Include needed files
  */
-use azul\Numbers\Words;
+use azul\Numbers_Words\Numbers\Words;
 
 /**
  * Class for translating numbers into Spanish (Castellano).
