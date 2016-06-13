@@ -192,10 +192,10 @@ class Words
         } elseif ($len > 2) {
             // get the 3rd digit after the comma
             $round_digit = substr($currency[1], 2, 1);
-            
+
             // cut everything after the 2nd digit
             $currency[1] = substr($currency[1], 0, 2);
-            
+
             if ($round_digit >= 5) {
                 // round up without losing precision
                 include_once "Math/BigInteger.php";
@@ -280,14 +280,15 @@ class Words
      */
     public static function loadLocale($locale, $requiredMethod)
     {
-        $locale = ucfirst(substr($locale, 0,2));
+        //$locale = ucfirst(substr($locale, 0,2));
+        $locale = ucfirst($locale);
         $classname = __NAMESPACE__.'\Words\Locale\NumbersWordsLocale' . $locale;
         if (!class_exists($classname)) {
             throw new \Exception(
                 'Unable to load locale class ' . $classname
             );
         }
-        
+
         $methods = get_class_methods($classname);
 
         if (!in_array($requiredMethod, $methods)) {
